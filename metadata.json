@@ -1,0 +1,6 @@
+{
+  "name": "Eventix",
+  "description": "A comprehensive event ticketing platform for creators to sell tickets and attendees to discover and book experiences with secure QR-based validation.",
+  "requestFramePermissions": ["camera"],
+  "majorCapabilities": ["Event Ticketing", "Real-time Booking", "QR Code Validation"]
+}
