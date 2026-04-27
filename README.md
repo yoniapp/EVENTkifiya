@@ -110,4 +110,11 @@ Eventix implements a **Zero-Trust** security model:
 ## 🤝 Open Source & Contributions
 Eventix is built on the belief that access should be open. We welcome contributions that improve the security, performance, or accessibility of the platform.
 
+---
+
+## 👨‍💻 Author
+**Yonas Muluegeta**
+- 📧 Email: [yoniwin.yw@gmail.com](mailto:yoniwin.yw@gmail.com)
+- 📱 Phone: [+251 939 680 725](tel:+251939680725)
+
 **Eventix: Launch your next production with confidence.**
