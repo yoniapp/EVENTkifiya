@@ -69,7 +69,7 @@ export default function EventDetails() {
       // Chapa Inline Popup Integration
       if ((window as any).Chapa) {
         (window as any).Chapa.pay({
-          public_key: import.meta.env.VITE_CHAPA_PUBLIC_KEY || 'CHAPUBK_TEST-qUKLzuMIcaYfMb95vMW5tLuh7YEkZwsa',
+          public_key: import.meta.env.VITE_CHAPA_PUBLIC_KEY,
           tx_ref: tx_ref,
           amount: typeData.price,
           currency: 'ETB',

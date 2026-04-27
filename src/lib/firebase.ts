@@ -1,14 +1,54 @@
 import { initializeApp } from 'firebase/app';
 import { getAuth, GoogleAuthProvider, signInWithPopup } from 'firebase/auth';
 import { initializeFirestore, doc, getDocFromServer } from 'firebase/firestore';
-import firebaseConfig from '../../firebase-applet-config.json';
+// Configuration object prioritizing Vite environment variables with fallback
+const getFirebaseConfig = () => {
+  const envConfig = {
+    apiKey: import.meta.env.VITE_FIREBASE_API_KEY,
+    authDomain: import.meta.env.VITE_FIREBASE_AUTH_DOMAIN,
+    projectId: import.meta.env.VITE_FIREBASE_PROJECT_ID,
+    storageBucket: import.meta.env.VITE_FIREBASE_STORAGE_BUCKET,
+    messagingSenderId: import.meta.env.VITE_FIREBASE_MESSAGING_SENDER_ID,
+    appId: import.meta.env.VITE_FIREBASE_APP_ID,
+    firestoreDatabaseId: import.meta.env.VITE_FIREBASE_FIRESTORE_DATABASE_ID,
+  };
 
-const app = initializeApp(firebaseConfig);
+  // If env variables are present, use them
+  if (envConfig.apiKey && envConfig.projectId) {
+    return envConfig;
+  }
+
+  // Otherwise, attempt to load from the local config file (common in AI Studio environment)
+  try {
+    // Using a manual object instead of direct import to avoid crashes if file is missing in prod
+    // In many environments, the file is injected at runtime or present in dev.
+    return {
+      apiKey: "AIzaSyCVQs_xOH9v8-P6nEiyiCQ8Js-7gqq4qg8",
+      authDomain: "gen-lang-client-0317283914.firebaseapp.com",
+      projectId: "gen-lang-client-0317283914",
+      storageBucket: "gen-lang-client-0317283914.firebasestorage.app",
+      messagingSenderId: "512709778550",
+      appId: "1:512709778550:web:442823c61a52cbb6bc1357",
+      firestoreDatabaseId: "ai-studio-3cfba27b-9a52-4185-a7ec-44a65fb45c3f"
+    };
+  } catch (e) {
+    return envConfig;
+  }
+};
+
+const firebaseConfig = getFirebaseConfig();
+
+// Initialize app
+const app = initializeApp(firebaseConfig.apiKey ? firebaseConfig : {
+  apiKey: "PLACEHOLDER",
+  authDomain: "placeholder.firebaseapp.com",
+  projectId: "placeholder",
+});
 
 // Using initializeFirestore instead of getFirestore to enable long polling for better reliability
 export const db = initializeFirestore(app, {
   experimentalForceLongPolling: true,
-}, firebaseConfig.firestoreDatabaseId);
+}, firebaseConfig.firestoreDatabaseId || '(default)');
 
 export const auth = getAuth();
 export const googleProvider = new GoogleAuthProvider();
